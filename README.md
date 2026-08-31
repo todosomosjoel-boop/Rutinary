@@ -1,49 +1,44 @@
-# RITMO Hábitos V1.0.1
+# Rutinary 1.1.0
 
-Web-app de hábitos personales creada con Next.js 15, React 19 y TypeScript.
+Web-app de hábitos construida con Next.js + React + TypeScript.
 
-## Acceso inicial
+## Accesos iniciales
 
-- Usuario: `Diego.123`
-- Contraseña: `Diego.123`
-- Rol: Administrador
+### Administrador
+- Usuario: `Diego123`
+- Clave: `Diego123`
 
-> Esta V1 utiliza `localStorage` para permitir pruebas inmediatas sin backend. Los datos son locales al navegador/dispositivo. Para producción multiusuario real, la siguiente etapa es conectar Supabase Auth + base de datos + RLS.
+El administrador accede exclusivamente al **Dashboard de usuarios**, donde puede filtrar por usuario y revisar el porcentaje de avance de Ejercicio, Lectura, Sueño, Hidratación y Alimentación según las metas personales de cada usuario.
+
+### Usuarios
+- Usuario: `Usuariodiego123`
+- Clave: `Usuariodiego123`
+
+- Usuario: `Usuarioleslie123`
+- Clave: `Usuarioleslie123`
+
+Los usuarios acceden a Mi día, Ejercicio, Lectura, Sueño, Hidratación, Alimentación y Progreso. Sus metas se administran desde **Progreso → Administrar metas**.
 
 ## Ejecutar localmente
-
-Requiere Node.js 22.x.
 
 ```bash
 npm install
 npm run dev
 ```
 
-Abrir: http://localhost:3000
-
-## Verificar producción
+Para validar producción:
 
 ```bash
 npm run typecheck
 npm run build
 ```
 
-## Despliegue en Vercel
+## Vercel
 
-1. Subir el contenido de esta carpeta a la raíz del repositorio.
-2. Importar el repositorio en Vercel.
-3. Framework Preset: Next.js (detección automática).
-4. Build Command: `npm run build` o dejar Auto.
-5. No requiere variables de entorno en esta V1.
+El proyecto puede subirse directamente a GitHub y desplegarse en Vercel. Node.js está definido como 22.x.
 
-## Cambios de esta corrección
+## Importante sobre esta versión
 
-- Next.js actualizado a 15.5.23.
-- Node.js fijado a 22.x para despliegues reproducibles.
-- Script de instalación de `sharp` aprobado explícitamente para npm.
-- Corregidos warnings CSS `align-items: end`.
-- Fechas diarias calculadas en hora local, no UTC.
-- Lectura diaria acumula correctamente múltiples avances del mismo día.
-- Dashboard suma páginas leídas entre todas las lecturas del día.
-- Progreso semanal incorpora lectura y usa los 5 hábitos.
-- Se protege la cuenta administradora inicial de una desactivación o cambio de rol accidental.
+Esta versión sigue utilizando `localStorage` para los registros. Por lo tanto, sirve para probar toda la experiencia multiusuario en un mismo navegador, pero un administrador no puede ver desde su equipo los registros realizados por otra persona en otro dispositivo/navegador.
+
+Para que el dashboard administrador consolide usuarios reales desde distintos dispositivos, la siguiente etapa debe conectar autenticación y registros a una base compartida como Supabase. La interfaz y la separación de roles de esta versión ya quedan preparadas para esa migración.

@@ -7,7 +7,7 @@ import { currentUser, getGoals, readJson, todayKey } from '@/lib/storage';
 import Link from 'next/link';
 
 export default function HomePage() {
-  return <AuthGuard><AppShell><Dashboard /></AppShell></AuthGuard>;
+  return <AuthGuard userOnly><AppShell><Dashboard /></AppShell></AuthGuard>;
 }
 
 function Dashboard() {

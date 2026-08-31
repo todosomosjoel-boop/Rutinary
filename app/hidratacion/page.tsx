@@ -5,7 +5,7 @@ import AppShell from '@/components/AppShell';
 import PageHeader from '@/components/PageHeader';
 import ProgressBar from '@/components/ProgressBar';
 import { currentUser, getGoals, readJson, todayKey, writeJson } from '@/lib/storage';
-export default function HydrationPage(){return <AuthGuard><AppShell><Water/></AppShell></AuthGuard>}
+export default function HydrationPage(){return <AuthGuard userOnly><AppShell><Water/></AppShell></AuthGuard>}
 function Water(){const user=currentUser()!;const goal=getGoals(user.username).hydrationMl;const key=`ritmo_water_${user.username}_${todayKey()}`;const logKey=`ritmo_waterlog_${user.username}_${todayKey()}`;const [water,setWater]=useState(()=>readJson<number>(key,0));const [logs,setLogs]=useState<any[]>(()=>readJson(logKey,[]));
  function add(ml:number){const next=Math.max(0,water+ml);setWater(next);writeJson(key,next);const nextLogs=ml>0?[{time:new Date().toLocaleTimeString('es-CL',{hour:'2-digit',minute:'2-digit'}),ml},...logs]:logs;setLogs(nextLogs);writeJson(logKey,nextLogs)}
  const pct=Math.min(100,water/goal*100);

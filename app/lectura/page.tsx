@@ -7,7 +7,7 @@ import ProgressBar from '@/components/ProgressBar';
 import { currentUser, readJson, todayKey, writeJson } from '@/lib/storage';
 
 type Reading={id:string;title:string;type:string;totalPages:number;currentPage:number;completed:boolean};
-export default function ReadingPage(){return <AuthGuard><AppShell><ReadingPanel/></AppShell></AuthGuard>}
+export default function ReadingPage(){return <AuthGuard userOnly><AppShell><ReadingPanel/></AppShell></AuthGuard>}
 function ReadingPanel(){
  const user=currentUser()!; const key=`ritmo_readings_${user.username}`; const [readings,setReadings]=useState<Reading[]>(()=>readJson(key,[]));
  const [title,setTitle]=useState(''); const [type,setType]=useState('Libro'); const [pages,setPages]=useState(''); const [selected,setSelected]=useState<string|null>(readings[0]?.id||null); const [current,setCurrent]=useState(''); const [summary,setSummary]=useState('');

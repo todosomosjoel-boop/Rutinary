@@ -4,7 +4,7 @@ import AuthGuard from '@/components/AuthGuard';
 import AppShell from '@/components/AppShell';
 import PageHeader from '@/components/PageHeader';
 import { currentUser, getGoals, readJson, todayKey, writeJson } from '@/lib/storage';
-export default function SleepPage(){return <AuthGuard><AppShell><Sleep/></AppShell></AuthGuard>}
+export default function SleepPage(){return <AuthGuard userOnly><AppShell><Sleep/></AppShell></AuthGuard>}
 function Sleep(){const user=currentUser()!;const goals=getGoals(user.username);const key=`ritmo_sleep_${user.username}_${todayKey()}`;const saved=readJson<any>(key,{start:'23:30',end:'07:00',hours:0,quality:3});const [start,setStart]=useState(saved.start);const [end,setEnd]=useState(saved.end);const [quality,setQuality]=useState(saved.quality||3);const [hours,setHours]=useState(saved.hours||0);
  const status=useMemo(()=>hours===0?['Sin registro','Registra tu descanso para ver una recomendación.']:hours<7?['Bajo el rango habitual','Dormiste menos de 7 horas. Si puedes, prioriza una noche más larga hoy.']:hours<=9?['Dentro del rango orientativo','Para muchos adultos, 7–9 horas suele ser un rango adecuado.']:['Sobre el rango orientativo','Una noche larga ocasional puede ser normal; observa cómo te sientes durante el día.'],[hours]);
  function save(){const [sh,sm]=start.split(':').map(Number);const [eh,em]=end.split(':').map(Number);let mins=(eh*60+em)-(sh*60+sm);if(mins<=0)mins+=1440;const h=Math.round(mins/6)/10;setHours(h);writeJson(key,{start,end,hours:h,quality})}

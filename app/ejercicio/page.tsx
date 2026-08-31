@@ -14,7 +14,7 @@ const workouts = [
   { name:'Plancha', sets:3, reps:'30–45 s', rest:45, img:'🧱', tip:'Codos bajo hombros y cuerpo en línea recta.' }
 ];
 
-export default function ExercisePage(){return <AuthGuard><AppShell><Exercise/></AppShell></AuthGuard>}
+export default function ExercisePage(){return <AuthGuard userOnly><AppShell><Exercise/></AppShell></AuthGuard>}
 function Exercise(){
  const user=currentUser()!; const key=`ritmo_exercise_${user.username}_${todayKey()}`;
  const [done,setDone]=useState(false); const [timer,setTimer]=useState(0); const [active,setActive]=useState<number|null>(null);

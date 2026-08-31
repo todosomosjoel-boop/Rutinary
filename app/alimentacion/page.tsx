@@ -5,7 +5,7 @@ import AppShell from '@/components/AppShell';
 import PageHeader from '@/components/PageHeader';
 import { currentUser, readJson, todayKey, writeJson } from '@/lib/storage';
 const ideas=[['Bowl de pollo y verduras','520','44','12','Almuerzo'],['Omelette con espinaca y queso fresco','360','31','5','Desayuno'],['Yogur griego, berries y semillas','290','24','9','Snack'],['Salmón con ensalada tibia','540','42','10','Cena'],['Ensalada de atún y garbanzos','470','39','14','Almuerzo'],['Pavo con zapallo italiano salteado','410','46','8','Cena']];
-export default function FoodPage(){return <AuthGuard><AppShell><Food/></AppShell></AuthGuard>}
+export default function FoodPage(){return <AuthGuard userOnly><AppShell><Food/></AppShell></AuthGuard>}
 function Food(){const user=currentUser()!;const key=`ritmo_food_${user.username}_${todayKey()}`;const [foods,setFoods]=useState<any[]>(()=>readJson(key,[]));const [name,setName]=useState('');const [cal,setCal]=useState('');const [pro,setPro]=useState('');const [fiber,setFiber]=useState('');
  function add(e:FormEvent){e.preventDefault();if(!name||!cal)return;const next=[...foods,{id:crypto.randomUUID(),name,calories:Number(cal),protein:Number(pro||0),fiber:Number(fiber||0)}];setFoods(next);writeJson(key,next);setName('');setCal('');setPro('');setFiber('')}
  const totals=foods.reduce((a,x)=>({cal:a.cal+x.calories,pro:a.pro+x.protein,fib:a.fib+x.fiber}),{cal:0,pro:0,fib:0});
